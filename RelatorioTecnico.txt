@@ -65,8 +65,8 @@ Em Project Settings > XR Plugin Management, na aba Android, marcar a opção
 OVRCameraRig e os controles de movimento do headset.
 
 * 3.5 Movimentação no PC (Editor):
-O script JogadorController usa Input.GetAxis("Horizontal") e ("Vertical")
-para movimentação via teclado (WASD ou setas). A tecla E ou clique do mouse
+O script JogadorController usa o New Input System (Keyboard.current) para
+movimentação via teclado: WASD e setas direcionais movem o player. A tecla E
 ativa a interação com a Fonte_Principal ao se aproximar. Não é necessário
 o headset para testar no Unity Editor.
 

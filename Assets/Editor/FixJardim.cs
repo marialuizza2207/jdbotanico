@@ -154,6 +154,27 @@ public class FixJardim : EditorWindow
         var xr = GameObject.Find("XROrigin");
         if (xr != null) { xr.transform.position = Vector3.zero; EditorUtility.SetDirty(xr); }
 
+        // ── Skybox ───────────────────────────────────────────────
+        var skyboxShader = Shader.Find("Skybox/Procedural");
+        if (skyboxShader != null)
+        {
+            var skyMat = new Material(skyboxShader);
+            skyMat.SetFloat("_SunDisk", 2);
+            skyMat.SetFloat("_SunSize", 0.04f);
+            skyMat.SetFloat("_AtmosphereThickness", 1.0f);
+            skyMat.SetColor("_SkyTint",    new Color(0.53f, 0.81f, 0.98f));
+            skyMat.SetColor("_GroundColor", new Color(0.37f, 0.55f, 0.27f));
+            skyMat.SetFloat("_Exposure", 1.3f);
+            RenderSettings.skybox = skyMat;
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
+            DynamicGI.UpdateEnvironment();
+            Debug.Log("✅ Skybox procedural configurado (céu azul + sol)");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ Shader Skybox/Procedural não encontrado — skybox padrão mantido");
+        }
+
         UnityEditor.SceneManagement.EditorSceneManager.MarkAllScenesDirty();
         Debug.Log($"✅ Fix completo! Shader: {shader.name} — Salve com Ctrl+S.");
     }

@@ -1,0 +1,231 @@
+RELATÓRIO TÉCNICO — PROJETO VR NO METAVERSO
+Web 3.0 | Residência em TIC 29 — Atividade Avaliativa
+
+---
+
+SEÇÃO 1 — IDENTIFICAÇÃO
+
+Nome Completo: Maria Luiza de Moraes Mazon
+Turma / Residência: Web 3.0 | Residência em TIC 29
+Limitação de Hardware Relatada: Nenhuma limitação técnica significativa
+identificada. Projeto desenvolvido no Unity Editor com movimentação via
+teclado, dispensando o uso do headset Meta Quest para testes iniciais.
+
+---
+
+SEÇÃO 2 — CONCEITO DO PROJETO
+
+2.1 Nome do Projeto: JardimMeta: Jardim Botânico Virtual
+
+2.2 Contexto e Objetivo no Metaverso:
+Criar um ambiente imersivo de jardim botânico em Realidade Virtual onde o
+usuário pode explorar livremente um espaço natural estilizado, coletar flores
+interativas e ativar uma fonte d'água central. O objetivo é demonstrar como
+ambientes naturais relaxantes e contemplativos podem ser reproduzidos no
+Metaverso, promovendo bem-estar e exploração criativa em VR.
+
+2.3 Descrição Geral do Ambiente Virtual:
+Um jardim botânico circular com gramado verde, centrado em uma fonte d'água
+interativa. Ao redor da fonte há cinco flores luminosas coletáveis (Rosa,
+Tulipa, Orquídea, Girassol e Lavanda), cada uma com cor e pontuação única.
+Ao fundo, um pavilhão com colunas brancas e telhado de madeira oferece um
+ponto de referência arquitetônico. Três árvores frondosas nas extremidades
+criam profundidade, e um poste de luz emite iluminação quente no canto do
+jardim. A iluminação principal usa luz direcional com tom dourado para
+simular a atmosfera de tarde ensolarada.
+
+---
+
+SEÇÃO 3 — CONFIGURAÇÃO TÉCNICA DO PROJETO
+
+* 3.1 Versão do Unity e Porquê:
+Unity 6000.3.14f1 LTS, por ser a versão estável com suporte de longo prazo
+recomendada para o Meta XR SDK e garantir compatibilidade com o Meta Quest.
+
+* 3.2 Instalação do Meta XR SDK (Passo a Passo):
+1. Abrir Project Settings > Package Manager
+2. Adicionar o scoped registry "Meta XR SDK" com URL https://npm.developer.oculus.com
+3. Acessar Window > Package Manager
+4. Selecionar "My Registries" e instalar:
+   - Meta XR SDK Core (201.0.0)
+   - Meta XR SDK Interaction (201.0.0)
+   - Meta XR SDK Interaction OVR (201.0.0)
+O manifest.json já contém as dependências necessárias para instalação automática.
+
+* 3.3 Configurações de Build para Android/Meta Quest:
+- File > Build Settings > Switch Platform para Android
+- Texture Compression: ASTC
+- Minimum API Level: Android 10 (Level 29) para compatibilidade com Quest 2/3
+- Company Name: MariaLuizaMazon
+- Product Name: JardimMeta
+
+* 3.4 Configuração do XR Plugin Management:
+Em Project Settings > XR Plugin Management, na aba Android, marcar a opção
+"Oculus" para habilitar o suporte ao hardware Meta Quest. Isso ativa o
+OVRCameraRig e os controles de movimento do headset.
+
+* 3.5 Movimentação no PC (Editor):
+O script JogadorController usa Input.GetAxis("Horizontal") e ("Vertical")
+para movimentação via teclado (WASD ou setas). A tecla E ou clique do mouse
+ativa a interação com a Fonte_Principal ao se aproximar. Não é necessário
+o headset para testar no Unity Editor.
+
+---
+
+SEÇÃO 4 — ASSETS E ELEMENTOS DA CENA
+
+ASSET 1
+* Nome: Flor_Coletavel (x5 variantes)
+* Tipo: Objeto 3D (primitivo Unity — Sphere)
+* Origem: Primitivo Unity com material colorido gerado por script
+* Função: Elementos interativos coletáveis que oscilam e giram para
+  indicar interatividade. Cada flor tem cor e pontuação únicas:
+  Rosa (10 pts), Tulipa (15 pts), Orquídea (25 pts),
+  Girassol (20 pts), Lavanda (30 pts).
+
+ASSET 2
+* Nome: Fonte_Principal
+* Tipo: Objeto 3D (primitivo Unity — Cylinder achatado)
+* Origem: Primitivo Unity com material azul gerado por script
+* Função: Elemento interativo central. Muda de cor ao hover (ciano)
+  e ao ser ativada (azul escuro). Referência visual e ponto de
+  interação para o jogador.
+
+ASSET 3
+* Nome: Pavilhao (Colunas + Telhado)
+* Tipo: Objeto 3D composto (Cylinders + Cube)
+* Origem: Primitivos Unity construídos pelo PavilhaoBuilder (script Editor)
+* Função: Estrutura arquitetônica que delimita o espaço do jardim e
+  cria profundidade no ambiente.
+
+ASSET 4
+* Nome: Arvore_01, Arvore_02, Arvore_03
+* Tipo: Objeto 3D composto (Cylinder + Sphere)
+* Origem: Primitivos Unity construídos pelo PavilhaoBuilder (script Editor)
+* Função: Elementos decorativos que criam a sensação de um jardim
+  frondoso e natural, com tronco marrom e copa verde vibrante.
+
+ASSET 5
+* Nome: HUD_Canvas (Texto_Pontuacao, Texto_Flores, Texto_Mensagem)
+* Tipo: UI — Canvas World Space com TextMeshPro
+* Origem: Criado pelo JardimBuilder (script Editor), TextMesh Pro
+  instalado via Package Manager
+* Função: Interface flutuante que segue a câmera do jogador, exibindo
+  pontuação, progresso de flores coletadas e mensagens contextuais.
+
+---
+
+SEÇÃO 5 — HIERARQUIA DE GAME OBJECTS
+
+Scene: JardimBotanico
+
+* [--- MANAGEMENT ---]
+  * GerenciadorJardim   → controla pontuação e progresso de coleta
+  * EventSystem         → sistema de eventos UI
+  * HUD_Canvas          → interface World Space (segue a câmera)
+    - Texto_Pontuacao   → "Pontos: 0"
+    - Texto_Flores      → "Flores: 0/5"
+    - Texto_Mensagem    → mensagens contextuais
+
+* [--- PLAYER ---]
+  * XROrigin            → câmera + movimentação (JogadorController)
+
+* [--- ENVIRONMENT ---]
+  * Plano_Gramado       → gramado navegável (Plane escalado)
+  * Directional Light   → luz solar dourada (45°, 1.2 de intensidade)
+  * Pavilhao            → estrutura central do jardim
+    - Colunas
+        - Coluna_FE / Coluna_FD / Coluna_TE / Coluna_TD
+    - Telhado
+        - Telhado_Mesh
+  * Banco               → banco de jardim decorativo
+    - Assento
+      - Assento_Mesh
+    - Pes
+  * Arvores
+    - Arvore_01 / Arvore_02 / Arvore_03
+        - Tronco → Tronco_Mesh
+        - Copa   → Copa_Mesh
+  * Poste_Luz           → poste com Point Light quente (range 8m)
+    - Haste → Haste_Mesh
+    - Lampada (Light component)
+
+* [--- INTERACTABLES ---]
+  * Flor_Coletavel_01   → Rosa      (10 pts)
+  * Flor_Coletavel_02   → Tulipa    (15 pts)
+  * Flor_Coletavel_03   → Orquidea  (25 pts)
+  * Flor_Coletavel_04   → Girassol  (20 pts)
+  * Flor_Coletavel_05   → Lavanda   (30 pts)
+  * Fonte_Principal     → interação por proximidade (tecla E)
+
+---
+
+SEÇÃO 6 — PLANEJAMENTO DO REPOSITÓRIO GITHUB
+
+* 6.1 Nome do Repositório: JardimMeta-TIC29
+
+* 6.2 Estrutura de Pastas:
+  /Assets: Scripts, Editor, Materials, Scenes, Prefabs, Resources
+  /ProjectSettings: Configurações de Build e XR Plugin
+  /Packages: manifest.json com dependências do Meta XR SDK
+
+* .gitignore: Para ignorar /Library, /Temp, /Obj, /Build, /Logs e
+  arquivos .csproj e .sln gerados automaticamente pelo Unity.
+
+---
+
+SEÇÃO 7 — PLANO DE EXECUÇÃO PASSO A PASSO
+
+1. Etapa 1: Instalação do Unity 6 LTS e criação do projeto 3D (URP).
+
+2. Etapa 2: Configuração do manifest.json com o scoped registry Meta XR SDK
+   e importação dos pacotes Core, Interaction e Interaction OVR.
+
+3. Etapa 3: Build Settings configurados para Android (ASTC, API 29) e
+   XR Plugin Management com Oculus habilitado na aba Android.
+
+4. Etapa 4: Execução dos scripts Editor via menu Tools em sequência:
+   Build Jardim Scene → Build Pavilhão → Adicionar Componentes → Fix Jardim.
+
+5. Etapa 5: Ajuste fino das posições, escalas e materiais pelo Inspector
+   e validação da hierarquia organizada nas quatro seções lógicas.
+
+6. Etapa 6: Configuração das referências do HUD (Texto_Pontuacao,
+   Texto_Flores, Texto_Mensagem) no componente HUDJardim via Auto-Conectar.
+
+7. Etapa 7: Teste de jogabilidade no Unity Editor (Play Mode) usando teclado:
+   movimentação WASD, coleta por proximidade e ativação da fonte com E.
+
+8. Etapa 8: Publicação no GitHub com .gitignore configurado e commit inicial
+   incluindo apenas Assets/, ProjectSettings/ e Packages/.
+
+---
+
+SEÇÃO 8 — REFLEXÃO FINAL
+
+8.1 Aprendizado:
+Compreendi a importância da separação de responsabilidades nos scripts Unity
+(Controller para lógica, View para visual) e como os scripts Editor podem
+automatizar tarefas repetitivas de construção de cena. O sistema de
+proximidade com Physics.OverlapSphere foi uma solução elegante para
+interações sem dependência do headset.
+
+8.2 Dificuldades Previstas:
+O principal desafio seria garantir a performance no Meta Quest, que é um
+hardware mobile com recursos limitados. Reduzir draw calls agrupando meshes
+e evitar texturas de alta resolução seriam prioridades para a versão final.
+Também seria necessário calibrar os raios de coleta (raioColeta e raioFonte)
+para uma experiência VR natural sem o uso do teclado.
+
+8.3 Melhorias Futuras:
+Implementar um sistema de partículas para a fonte d'água ao ser ativada,
+adicionando feedback visual imersivo. Criar variações de flores com meshes
+personalizados (Asset Store gratuito) para substituir os primitivos Sphere.
+Explorar o suporte a Multiplayer com Photon PUN2 para que múltiplos usuários
+possam explorar o jardim simultaneamente no Metaverso.
+
+---
+
+FIM DO RELATÓRIO TÉCNICO
+Web 3.0 | Residência em TIC 29
+Aluna: Maria Luiza de Moraes Mazon

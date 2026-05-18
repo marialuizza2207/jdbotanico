@@ -7,14 +7,30 @@ public class JogadorController : MonoBehaviour
     [SerializeField] float velocidade = 3f;
     [SerializeField] float raioColeta = 1.5f;
     [SerializeField] float raioFonte  = 1.2f;
+    [SerializeField] float sensibilidadeMouse = 0.15f;
 
     private FonteInterativaController fonteAtual = null;
 
     void Update()
     {
-        float h = 0f, v = 0f;
+        // Mouse look (apenas horizontal, segurando botão direito)
+        var mouse = Mouse.current;
+        if (mouse != null)
+        {
+            bool direitoPremiado = mouse.rightButton.isPressed;
+            Cursor.lockState = direitoPremiado ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible   = !direitoPremiado;
+
+            if (direitoPremiado)
+            {
+                float deltaX = mouse.delta.ReadValue().x * sensibilidadeMouse;
+                transform.Rotate(Vector3.up * deltaX, Space.Self);
+            }
+        }
 
         var kb = Keyboard.current;
+
+        float h = 0f, v = 0f;
         if (kb != null)
         {
             if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) h += 1f;

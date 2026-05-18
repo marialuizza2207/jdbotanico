@@ -14,7 +14,7 @@ para testar).
 
 REPOSITÓRIO GITHUB
 ------------------
-[Link do repositório aqui]
+https://github.com/marialuizza2207/jdbotanico
 
 REQUISITOS PARA RODAR
 ---------------------
@@ -43,17 +43,18 @@ Após abrir o projeto no Unity, use os menus em ordem:
 
 CONTROLES (TECLADO/MOUSE)
 --------------------------
-W / Seta Cima    → Mover para frente
-S / Seta Baixo   → Mover para trás
-A / Seta Esq     → Mover para esquerda
-D / Seta Dir     → Mover para direita
-E ou Clique      → Ativar fonte (ao se aproximar)
+W / Seta Cima          → Mover para frente
+S / Seta Baixo         → Mover para trás
+A / Seta Esq           → Mover para esquerda
+D / Seta Dir           → Mover para direita
+Botão direito (segurar) → Girar a câmera (olhar em volta)
+E                      → Ligar/desligar a fonte (ao se aproximar)
 
 MECÂNICAS
 ---------
 - Aproximar das flores coloridas  → coletar (+pontos)
 - Aproximar da fonte central      → hover (cor ciano)
-- Pressionar E perto da fonte     → ativar (azul escuro)
+- Pressionar E perto da fonte     → ligar/desligar (pingos de água)
 - HUD mostra pontuação e progresso de flores em tempo real
 
 HIERARQUIA DA CENA

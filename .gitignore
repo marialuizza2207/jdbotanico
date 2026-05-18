@@ -27,3 +27,10 @@
 # OS
 .DS_Store
 Thumbs.db
+
+# Upload temporários
+*.pdf
+
+# Assets com texturas acima de 100MB (incompatíveis com GitHub sem LFS)
+Assets/ALP_Assets/
+Assets/ALP_Assets.meta

@@ -26,12 +26,16 @@ public class FonteInterativaController : MonoBehaviour
         Debug.Log("[Fonte] Hover exit");
     }
 
+    private bool ativa = false;
+
     public void AoAtivarProximidade()
     {
-        view?.SetAtivo();
+        ativa = !ativa;
+        view?.SetAtivo(ativa);
         var gj = FindFirstObjectByType<GerenciadorJardim>();
-        gj?.hudJardim?.ExibirMensagem("Fonte ativada! A água jorra!");
-        Debug.Log("[Fonte] Ativada!");
+        string msg = ativa ? "Fonte ativada! A água jorra!" : "Fonte desligada.";
+        gj?.hudJardim?.ExibirMensagem(msg);
+        Debug.Log($"[Fonte] {(ativa ? "Ativada" : "Desligada")}");
     }
 
     public void AoEntrarHover(HoverEnterEventArgs args) => AoEntrarHoverProximidade();

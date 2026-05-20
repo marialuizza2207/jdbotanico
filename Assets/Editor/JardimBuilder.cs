@@ -19,7 +19,7 @@ public class JardimBuilder : EditorWindow
         Debug.Log("[JardimBuilder] Hierarquia do jardim criada com sucesso!");
     }
 
-    // ── [--- MANAGEMENT ---] ────────────────────────────────────
+
 
     private static void CriarManagement()
     {
@@ -69,7 +69,7 @@ public class JardimBuilder : EditorWindow
         return obj;
     }
 
-    // ── [--- PLAYER ---] ────────────────────────────────────────
+
 
     private static void CriarJogador()
     {
@@ -95,7 +95,7 @@ public class JardimBuilder : EditorWindow
         camObj.AddComponent<AudioListener>();
     }
 
-    // ── [--- ENVIRONMENT ---] ────────────────────────────────────
+
 
     private static void CriarAmbiente()
     {
@@ -163,7 +163,7 @@ public class JardimBuilder : EditorWindow
         lampada.transform.SetParent(poste.transform);
     }
 
-    // ── [--- INTERACTABLES ---] ──────────────────────────────────
+
 
     private static void CriarInterativos()
     {

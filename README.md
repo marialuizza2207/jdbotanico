@@ -3,7 +3,7 @@
 > **Web 3.0 | Residência em TIC 29 — Unidade 1 / Capítulo 3**
 > Aluna: Maria Luiza de Moraes Mazon | Professora: Ana Beatriz
 
-Ambiente VR interativo criado em Unity 6 com Meta XR SDK. O jogador explora um jardim botânico virtual, coleta cinco flores luminosas e interage com uma fonte d'água central. Totalmente testável no Unity Editor via teclado, sem necessidade de headset.
+Esse projeto é um jardim botânico virtual feito em Unity 6 com Meta XR SDK. Dá pra explorar o espaço, coletar flores e interagir com a fonte de água. Funciona no Unity Editor com teclado — não precisa de headset pra testar.
 
 ---
 
@@ -75,68 +75,23 @@ Depois pressione **Play** para testar.
 
 ## Hierarquia da Cena
 
-```
-JardimBotanico (Scene)
-│
-├── [--- MANAGEMENT ---]
-│   ├── GerenciadorJardim       ← controla pontuação e progresso
-│   ├── EventSystem
-│   └── HUD_Canvas              ← Canvas World Space (segue a câmera)
-│       ├── Texto_Pontuacao
-│       ├── Texto_Flores
-│       └── Texto_Mensagem
-│
-├── [--- PLAYER ---]
-│   └── XROrigin                ← tag: Player | JogadorController
-│       └── Main Camera         ← câmera filha (altura dos olhos: 1.7 m)
-│
-├── [--- ENVIRONMENT ---]
-│   ├── Plano_Gramado           ← gramado verde navegável
-│   ├── Directional Light       ← luz solar dourada (45°, intensidade 1.2)
-│   ├── Pavilhao                ← estrutura central do jardim
-│   │   ├── Colunas
-│   │   │   ├── Coluna_FE / Coluna_FD
-│   │   │   └── Coluna_TE / Coluna_TD
-│   │   └── Telhado → Telhado_Mesh
-│   ├── Banco
-│   │   ├── Assento → Assento_Mesh
-│   │   └── Pes
-│   ├── Arvores
-│   │   ├── Arvore_01 → Tronco / Copa
-│   │   ├── Arvore_02 → Tronco / Copa
-│   │   └── Arvore_03 → Tronco / Copa
-│   └── Poste_Luz
-│       ├── Haste → Haste_Mesh
-│       └── Lampada             ← Point Light, alcance 8 m
-│
-└── [--- INTERACTABLES ---]
-    ├── Flor_Coletavel_01       ← Rosa       — 10 pts
-    ├── Flor_Coletavel_02       ← Tulipa     — 15 pts
-    ├── Flor_Coletavel_03       ← Orquídea   — 25 pts
-    ├── Flor_Coletavel_04       ← Girassol   — 20 pts
-    ├── Flor_Coletavel_05       ← Lavanda    — 30 pts
-    └── Fonte_Principal         ← interação por proximidade
-```
+A cena está dividida em quatro grupos de objetos:
+
+- **[--- MANAGEMENT ---]**: GerenciadorJardim, EventSystem e HUD_Canvas (Canvas World Space com os três textos de pontuação/progresso/mensagem)
+- **[--- PLAYER ---]**: XROrigin (tag Player, tem o JogadorController) com Main Camera filha na altura dos olhos
+- **[--- ENVIRONMENT ---]**: Plano_Gramado, Directional Light, Pavilhao (com 4 colunas e telhado), Banco, três Arvores com Tronco e Copa, e Poste_Luz com Point Light de alcance 8 m
+- **[--- INTERACTABLES ---]**: cinco flores coletáveis (Rosa 10 pts, Tulipa 15, Orquídea 25, Girassol 20, Lavanda 30) e Fonte_Principal
 
 ---
 
 ## Estrutura de Pastas
 
-```
-JardimBotanico/
-├── Assets/
-│   ├── Scripts/        ← runtime: GerenciadorJardim, HUDJardim, JogadorController,
-│   │                              FlorescenteController/View, FonteInterativaController/View
-│   ├── Editor/         ← tools: JardimBuilder, PavilhaoBuilder,
-│   │                            AdicionarComponentes, AutoConectarReferencias, FixJardim
-│   ├── Materials/      ← materiais gerados pelo FixJardim
-│   ├── Scenes/         ← JardimBotanico.unity
-│   ├── Prefabs/
-│   └── Resources/
-├── Packages/
-│   └── manifest.json   ← dependências (Meta XR SDK, XRI, TMP, Input System)
-└── ProjectSettings/
-```
+- `Assets/Scripts/` — scripts de runtime: GerenciadorJardim, HUDJardim, JogadorController, FlorescenteController/View, FonteInterativaController/View
+- `Assets/Editor/` — ferramentas de setup: JardimBuilder, PavilhaoBuilder, AdicionarComponentes, AutoConectarReferencias, FixJardim
+- `Assets/Materials/` — materiais criados pelo FixJardim
+- `Assets/Scenes/` — JardimBotanico.unity
+- `Packages/manifest.json` — dependências (Meta XR SDK, XRI, TMP, Input System)
+- `ProjectSettings/` — configurações do projeto
 
 ---
 

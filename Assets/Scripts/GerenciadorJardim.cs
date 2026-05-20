@@ -1,9 +1,8 @@
 using UnityEngine;
 
-// Gerencia o estado global do jardim: pontuação e progresso de coleta de flores
 public class GerenciadorJardim : MonoBehaviour
 {
-    [SerializeField] public HUDJardim hudJardim;
+    public HUDJardim hudJardim;
 
     private int pontuacao = 0;
     private int totalFlores = 5;
@@ -19,7 +18,6 @@ public class GerenciadorJardim : MonoBehaviour
         }
     }
 
-    // Chamado por FlorescenteController quando uma flor é coletada
     public void RegistrarColeta(int pontos)
     {
         pontuacao += pontos;

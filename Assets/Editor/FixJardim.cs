@@ -17,8 +17,8 @@ public class FixJardim : EditorWindow
             if (shader == null) shader = Shader.Find("Universal Render Pipeline/Unlit");
         }
         if (shader == null) shader = Shader.Find("Standard");
-        if (shader == null) { Debug.LogError("❌ Nenhum shader encontrado!"); return; }
-        Debug.Log("✅ Shader: " + shader.name);
+        if (shader == null) { Debug.LogError("[FixJardim] Nenhum shader encontrado!"); return; }
+        Debug.Log("[FixJardim] Shader: " + shader.name);
 
         System.IO.Directory.CreateDirectory("Assets/Materials");
 
@@ -57,7 +57,7 @@ public class FixJardim : EditorWindow
             if (r && m) { r.sharedMaterial = m; EditorUtility.SetDirty(r.gameObject); }
         }
 
-        // ── Gramado ──────────────────────────────────────────────
+        // Gramado
         var gramado = GameObject.Find("Plano_Gramado");
         if (gramado != null)
         {
@@ -65,10 +65,10 @@ public class FixJardim : EditorWindow
             gramado.transform.localScale = new Vector3(3f, 1f, 3f);
             AplicarMat(gramado.GetComponent<Renderer>(), matGramado);
             EditorUtility.SetDirty(gramado);
-            Debug.Log("✅ Plano_Gramado corrigido");
+            Debug.Log("[FixJardim] Plano_Gramado corrigido");
         }
 
-        // ── Pavilhão ─────────────────────────────────────────────
+        // Pavilhão
         var pavilhao = GameObject.Find("Pavilhao");
         if (pavilhao != null)
         {
@@ -80,20 +80,20 @@ public class FixJardim : EditorWindow
                 else if (n.Contains("Telhado")) AplicarMat(rend, matTelhado);
             }
             EditorUtility.SetDirty(pavilhao);
-            Debug.Log("✅ Pavilhão corrigido");
+            Debug.Log("[FixJardim] Pavilhão corrigido");
         }
 
-        // ── Banco ────────────────────────────────────────────────
+        // Banco
         var banco = GameObject.Find("Banco");
         if (banco != null)
         {
             foreach (var rend in banco.GetComponentsInChildren<Renderer>())
                 AplicarMat(rend, matBanco);
             EditorUtility.SetDirty(banco);
-            Debug.Log("✅ Banco corrigido");
+            Debug.Log("[FixJardim] Banco corrigido");
         }
 
-        // ── Árvores ──────────────────────────────────────────────
+        // Árvores
         for (int i = 1; i <= 3; i++)
         {
             var arvore = GameObject.Find($"Arvore_0{i}");
@@ -105,10 +105,10 @@ public class FixJardim : EditorWindow
                 else if (n.Contains("Copa"))   AplicarMat(rend, matCopa);
             }
             EditorUtility.SetDirty(arvore);
-            Debug.Log($"✅ Arvore_0{i} corrigida");
+            Debug.Log($"[FixJardim] Arvore_0{i} corrigida");
         }
 
-        // ── Flores Coletáveis ────────────────────────────────────
+        // Flores Coletáveis
         Material[] matsFlores = { matRosa, matTulipa, matOrquidea, matGirassol, matLavanda };
         Vector3[] posFlores = {
             new Vector3(-3f, 0.5f,  2f),
@@ -125,10 +125,10 @@ public class FixJardim : EditorWindow
             go.transform.localScale = Vector3.one * 0.25f;
             AplicarMat(go.GetComponent<Renderer>(), matsFlores[i - 1]);
             EditorUtility.SetDirty(go);
-            Debug.Log($"✅ Flor_Coletavel_0{i} corrigida");
+            Debug.Log($"[FixJardim] Flor_Coletavel_0{i} corrigida");
         }
 
-        // ── Fonte_Principal ──────────────────────────────────────
+        // Fonte
         var fonte = GameObject.Find("Fonte_Principal");
         if (fonte != null)
         {
@@ -136,10 +136,10 @@ public class FixJardim : EditorWindow
             fonte.transform.localScale = new Vector3(1.5f, 0.4f, 1.5f);
             AplicarMat(fonte.GetComponent<Renderer>(), matFonte);
             EditorUtility.SetDirty(fonte);
-            Debug.Log("✅ Fonte_Principal corrigida");
+            Debug.Log("[FixJardim] Fonte_Principal corrigida");
         }
 
-        // ── HUD_Canvas ───────────────────────────────────────────
+        // HUD_Canvas
         var hud = GameObject.Find("HUD_Canvas");
         if (hud != null)
         {
@@ -147,14 +147,14 @@ public class FixJardim : EditorWindow
             hud.transform.rotation   = Quaternion.identity;
             hud.transform.localScale = new Vector3(0.003f, 0.003f, 0.003f);
             EditorUtility.SetDirty(hud);
-            Debug.Log("✅ HUD_Canvas corrigido");
+            Debug.Log("[FixJardim] HUD_Canvas corrigido");
         }
 
-        // ── XROrigin ─────────────────────────────────────────────
+        // XROrigin
         var xr = GameObject.Find("XROrigin");
         if (xr != null) { xr.transform.position = Vector3.zero; EditorUtility.SetDirty(xr); }
 
-        // ── Skybox ───────────────────────────────────────────────
+        // Skybox
         var skyboxShader = Shader.Find("Skybox/Procedural");
         if (skyboxShader != null)
         {
@@ -168,15 +168,15 @@ public class FixJardim : EditorWindow
             RenderSettings.skybox = skyMat;
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
             DynamicGI.UpdateEnvironment();
-            Debug.Log("✅ Skybox procedural configurado (céu azul + sol)");
+            Debug.Log("[FixJardim] Skybox procedural configurado");
         }
         else
         {
-            Debug.LogWarning("⚠️ Shader Skybox/Procedural não encontrado — skybox padrão mantido");
+            Debug.LogWarning("[FixJardim] Shader Skybox/Procedural nao encontrado, skybox padrao mantido");
         }
 
         UnityEditor.SceneManagement.EditorSceneManager.MarkAllScenesDirty();
-        Debug.Log($"✅ Fix completo! Shader: {shader.name} — Salve com Ctrl+S.");
+        Debug.Log($"[FixJardim] Concluido. Shader: {shader.name}");
     }
 }
 #endif

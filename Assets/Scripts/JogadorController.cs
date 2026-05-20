@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class JogadorController : MonoBehaviour
 {
-    [SerializeField] public Camera referenciaCamera;
+    public Camera referenciaCamera;
     [SerializeField] float velocidade = 3f;
     [SerializeField] float raioColeta = 1.5f;
     [SerializeField] float raioFonte  = 1.2f;
@@ -71,11 +71,4 @@ public class JogadorController : MonoBehaviour
             fonteAtual.AoAtivarProximidade();
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, raioColeta);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, raioFonte);
-    }
 }

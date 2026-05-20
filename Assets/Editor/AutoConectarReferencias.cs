@@ -8,14 +8,14 @@ public class AutoConectarReferencias : EditorWindow
     [MenuItem("Tools/Auto-Conectar Referências do Jardim")]
     public static void ConectarReferencias()
     {
-        var gj  = Object.FindFirstObjectByType<GerenciadorJardim>();
-        var hud = Object.FindFirstObjectByType<HUDJardim>();
+        var gj  = Object.FindObjectOfType<GerenciadorJardim>();
+        var hud = Object.FindObjectOfType<HUDJardim>();
 
         if (gj && hud)
         {
             gj.hudJardim = hud;
             EditorUtility.SetDirty(gj);
-            Debug.Log("✅ GerenciadorJardim → HUDJardim");
+            // ok;
         }
 
         if (hud)
@@ -27,16 +27,16 @@ public class AutoConectarReferencias : EditorWindow
             if (tf) hud.textoFlores    = tf.GetComponent<TextMeshProUGUI>();
             if (tm) hud.textoMensagem  = tm.GetComponent<TextMeshProUGUI>();
             EditorUtility.SetDirty(hud);
-            Debug.Log("✅ HUDJardim → textos");
+            // ok;
         }
 
-        var jc  = Object.FindFirstObjectByType<JogadorController>();
+        var jc  = Object.FindObjectOfType<JogadorController>();
         var cam = Camera.main;
         if (jc && cam)
         {
             jc.referenciaCamera = cam;
             EditorUtility.SetDirty(jc);
-            Debug.Log("✅ JogadorController → Main Camera");
+            // ok;
         }
 
         string[] nomesFlores = { "Rosa", "Tulipa", "Orquidea", "Girassol", "Lavanda" };
@@ -50,11 +50,11 @@ public class AutoConectarReferencias : EditorWindow
             ctrl.nomeFlor = nomesFlores[i];
             ctrl.pontos   = pontosFlores[i];
             EditorUtility.SetDirty(go);
-            Debug.Log($"✅ Flor_Coletavel_0{i + 1} → {nomesFlores[i]}");
+            // ok;
         }
 
         UnityEditor.SceneManagement.EditorSceneManager.MarkAllScenesDirty();
-        Debug.Log("✅ Auto-Conectar concluído! Salve com Ctrl+S.");
+        // ok;
     }
 }
 #endif

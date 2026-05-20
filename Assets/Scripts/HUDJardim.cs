@@ -3,9 +3,9 @@ using TMPro;
 
 public class HUDJardim : MonoBehaviour
 {
-    [SerializeField] public TextMeshProUGUI textoPontuacao;
-    [SerializeField] public TextMeshProUGUI textoFlores;
-    [SerializeField] public TextMeshProUGUI textoMensagem;
+    public TextMeshProUGUI textoPontuacao;
+    public TextMeshProUGUI textoFlores;
+    public TextMeshProUGUI textoMensagem;
 
     private Transform camTransform;
     [SerializeField] float distancia = 2f;
@@ -14,7 +14,7 @@ public class HUDJardim : MonoBehaviour
     void Start()
     {
         var cam = Camera.main;
-        if (cam == null) cam = FindFirstObjectByType<Camera>();
+        if (cam == null) cam = FindObjectOfType<Camera>();
         if (cam != null) camTransform = cam.transform;
     }
 

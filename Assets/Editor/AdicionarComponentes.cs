@@ -10,24 +10,22 @@ public class AdicionarComponentes : EditorWindow
     [MenuItem("Tools/Adicionar Componentes do Jardim")]
     public static void AddComponents()
     {
-        // ── GerenciadorJardim ────────────────────────────────────
+        
         var gjGO = GameObject.Find("GerenciadorJardim");
         if (gjGO != null)
         {
             AddIfMissing<GerenciadorJardim>(gjGO);
-            Debug.Log("✅ GerenciadorJardim: componente adicionado");
         }
 
-        // ── EventSystem ──────────────────────────────────────────
+        
         var esGO = GameObject.Find("EventSystem");
         if (esGO != null)
         {
             AddIfMissing<EventSystem>(esGO);
             AddIfMissing<StandaloneInputModule>(esGO);
-            Debug.Log("✅ EventSystem: componentes adicionados");
         }
 
-        // ── HUD_Canvas ───────────────────────────────────────────
+        // HUD_Canvas
         var hudGO = GameObject.Find("HUD_Canvas");
         if (hudGO != null)
         {
@@ -45,10 +43,10 @@ public class AdicionarComponentes : EditorWindow
             SetupTMP("Texto_Mensagem", "Explore o jardim e colete as flores!");
 
             EditorUtility.SetDirty(hudGO);
-            Debug.Log("✅ HUD_Canvas: componentes e posição configurados");
+            // ok;
         }
 
-        // ── XROrigin / JogadorController ─────────────────────────
+        // XROrigin / JogadorController
         var xrGO = GameObject.Find("XROrigin");
         if (xrGO != null)
         {
@@ -71,14 +69,13 @@ public class AdicionarComponentes : EditorWindow
                 if (camObj.GetComponent<AudioListener>() == null)
                     camObj.AddComponent<AudioListener>();
                 EditorUtility.SetDirty(camObj);
-                Debug.Log("✅ Main Camera criada dentro do XROrigin");
+                // camera criada;
             }
 
             EditorUtility.SetDirty(xrGO);
-            Debug.Log("✅ XROrigin: JogadorController e tag Player configurados");
         }
 
-        // ── Flores Coletáveis ────────────────────────────────────
+        // Flores Coletáveis
         string[] nomesFlores  = { "Rosa", "Tulipa", "Orquidea", "Girassol", "Lavanda" };
         int[]    pontosFlores  = { 10, 15, 25, 20, 30 };
 
@@ -97,10 +94,10 @@ public class AdicionarComponentes : EditorWindow
             xrInt.selectEntered.AddListener(ctrl.OnInteracaoXR);
 
             EditorUtility.SetDirty(go);
-            Debug.Log($"✅ Flor_Coletavel_0{i} ({nomesFlores[i-1]}): componentes adicionados");
+            // ok;
         }
 
-        // ── Fonte_Principal ──────────────────────────────────────
+        // Fonte_Principal
         var fonteGO = GameObject.Find("Fonte_Principal");
         if (fonteGO != null)
         {
@@ -114,14 +111,14 @@ public class AdicionarComponentes : EditorWindow
             xrInt.selectEntered.AddListener(fCtrl.AoAtivar);
 
             EditorUtility.SetDirty(fonteGO);
-            Debug.Log("✅ Fonte_Principal: componentes e eventos conectados");
+            // ok;
         }
 
-        // ── Auto-Conectar referências ─────────────────────────────
+        
         AutoConectarReferencias.ConectarReferencias();
 
         UnityEditor.SceneManagement.EditorSceneManager.MarkAllScenesDirty();
-        Debug.Log("✅ Tudo pronto! Salve com Ctrl+S.");
+        Debug.Log("[AdicionarComponentes] Concluido. Salve com Ctrl+S.");
     }
 
     static T AddIfMissing<T>(GameObject go) where T : Component

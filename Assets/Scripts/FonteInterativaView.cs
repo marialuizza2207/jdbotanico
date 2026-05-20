@@ -12,7 +12,6 @@ public class FonteInterativaView : MonoBehaviour
 
     void Awake()
     {
-        // Desativa renderer placeholder do objeto raiz
         var rootRend = GetComponent<Renderer>();
         if (rootRend != null) rootRend.enabled = false;
 

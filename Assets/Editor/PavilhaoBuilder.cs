@@ -9,7 +9,7 @@ public class PavilhaoBuilder : EditorWindow
     public static void BuildPavilhao()
     {
         var pavilhao = GameObject.Find("Pavilhao");
-        if (pavilhao == null) { Debug.LogError("❌ GameObject 'Pavilhao' não encontrado!"); return; }
+        if (pavilhao == null) { Debug.LogError("[PavilhaoBuilder] GameObject 'Pavilhao' nao encontrado!"); return; }
 
         Vector3 c = pavilhao.transform.position;
         float largura = 8f, profundidade = 6f, alturaColuna = 3f;
@@ -99,7 +99,7 @@ public class PavilhaoBuilder : EditorWindow
 
         EditorUtility.SetDirty(pavilhao);
         UnityEditor.SceneManagement.EditorSceneManager.MarkAllScenesDirty();
-        Debug.Log("✅ Pavilhão construído! Salve com Ctrl+S.");
+        Debug.Log("[PavilhaoBuilder] Concluido. Salve com Ctrl+S.");
     }
 
     static void ConstruirBanco(GameObject banco, Material mat)

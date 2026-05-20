@@ -4,16 +4,17 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class FonteInterativaController : MonoBehaviour
 {
     private FonteInterativaView view;
+    private GerenciadorJardim gj;
 
     void Awake()
     {
         view = GetComponent<FonteInterativaView>();
+        gj = FindObjectOfType<GerenciadorJardim>();
     }
 
     public void AoEntrarHoverProximidade()
     {
         view?.SetHover(true);
-        var gj = FindFirstObjectByType<GerenciadorJardim>();
         gj?.hudJardim?.ExibirMensagem("Pressione E para ativar a fonte!");
         Debug.Log("[Fonte] Hover enter");
     }
@@ -21,7 +22,6 @@ public class FonteInterativaController : MonoBehaviour
     public void AoSairHoverProximidade()
     {
         view?.SetHover(false);
-        var gj = FindFirstObjectByType<GerenciadorJardim>();
         gj?.hudJardim?.ExibirMensagem("Explore o jardim e colete as flores!");
         Debug.Log("[Fonte] Hover exit");
     }
@@ -32,7 +32,6 @@ public class FonteInterativaController : MonoBehaviour
     {
         ativa = !ativa;
         view?.SetAtivo(ativa);
-        var gj = FindFirstObjectByType<GerenciadorJardim>();
         string msg = ativa ? "Fonte ativada! A água jorra!" : "Fonte desligada.";
         gj?.hudJardim?.ExibirMensagem(msg);
         Debug.Log($"[Fonte] {(ativa ? "Ativada" : "Desligada")}");
